@@ -65,7 +65,7 @@ public class DontTakeTheLastTeddy : MonoBehaviour, ITakeTurnInvoker, IGameOverIn
 		
         // set up timer for delay between games
         newGameDelayTimer = gameObject.AddComponent<Timer>();
-        newGameDelayTimer.Duration = 1;
+        newGameDelayTimer.Duration = 0.01f;
         newGameDelayTimer.AddTimerFinishedListener(HandleTimerFinishedEvent);
 
         // initialize statistics class
@@ -77,8 +77,7 @@ public class DontTakeTheLastTeddy : MonoBehaviour, ITakeTurnInvoker, IGameOverIn
     /// </summary>
     void Start()
 	{
-        
-        StartGame(PlayerName.Player1, Difficulty.Hard, Difficulty.Hard);
+        StartGame(PlayerName.Player1, Difficulty.Easy, Difficulty.Easy);
     }
 
     /// <summary>
@@ -122,8 +121,7 @@ public class DontTakeTheLastTeddy : MonoBehaviour, ITakeTurnInvoker, IGameOverIn
         Difficulty player2Difficulty)
     {
         // set player difficulties
-        player1.Difficulty = player1Difficulty;
-        player2.Difficulty = player2Difficulty;
+        SetPlayerDifficulties(gamesPlayed);
 
         // create new board
         board.CreateNewBoard();
@@ -189,7 +187,7 @@ public class DontTakeTheLastTeddy : MonoBehaviour, ITakeTurnInvoker, IGameOverIn
                 {
                     // uncomment the line below and implement a
                     // SetPlayerDifficulties method
-                    //SetPlayerDifficulties(gamesPlayed);
+                    SetPlayerDifficulties(gamesPlayed);
                 }
 
                 gamesPlayed++;
@@ -230,4 +228,43 @@ public class DontTakeTheLastTeddy : MonoBehaviour, ITakeTurnInvoker, IGameOverIn
             }
         }
     }
+
+    /// <summary
+    /// sets the player difficulties based on the number of games played
+    /// <param name="gamesPlayed">number of games played so far</param>
+    /// </summary>
+    void SetPlayerDifficulties(int gamesPlayed)
+    {
+        if(gamesPlayed % 100 == 0)
+        {
+            switch (gamesPlayed / 100)
+            {
+                case 1:
+                    player1.Difficulty = Difficulty.Medium;
+                    player2.Difficulty = Difficulty.Medium;
+                    break;
+                case 2:
+                    player1.Difficulty = Difficulty.Hard;
+                    player2.Difficulty = Difficulty.Hard;
+                    break;
+                case 3:
+                    player1.Difficulty = Difficulty.Easy;
+                    player2.Difficulty = Difficulty.Medium;
+                    break;
+                case 4:
+                    player1.Difficulty = Difficulty.Easy;
+                    player2.Difficulty = Difficulty.Hard;
+                    break;
+                case 5:
+                    player1.Difficulty = Difficulty.Medium;
+                    player2.Difficulty = Difficulty.Hard;
+                    break;
+                default:
+                    player1.Difficulty = Difficulty.Easy;
+                    player2.Difficulty = Difficulty.Easy;
+                    break;
+            }
+        }
+    }
+    
 }
