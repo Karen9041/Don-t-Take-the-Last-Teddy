@@ -339,7 +339,26 @@ public class Player : MonoBehaviour, ITurnOverInvoker
         else
         {
             // use a heuristic evaluation function to score the node
-            node.MinimaxScore = 0.5f;
+            if(node.Value.NonEmptyBins.Count == 1 && node.Value.NumBears >1)
+            {
+                // leaving one non-empty bin with more than one teddy is good for maximizing player
+                node.MinimaxScore = 0.9f;
+            }
+            else if(node.Value.NonEmptyBins.Count % 2 == 0)
+            {
+                // even number of non-empty bins is good for maximizing player
+                node.MinimaxScore = 0.75f;
+            }
+            else if(node.Value.NonEmptyBins.Count % 2 == 1)
+            {
+                // odd number of non-empty bins is bad for maximizing player
+                node.MinimaxScore = 0.25f;
+            }
+            else
+            {
+                // default heuristic score
+                node.MinimaxScore = 0.5f;
+            }
 		}
     }
 }
