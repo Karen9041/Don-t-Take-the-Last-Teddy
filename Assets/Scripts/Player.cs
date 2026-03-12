@@ -161,15 +161,33 @@ public class Player : MonoBehaviour, ITurnOverInvoker
             foreach (Configuration child in children)
             {
                 // STUDENTS: only add to tree if within search depth
-
+                if( MeasureDepth(currentNode)+1 <= searchDepth)
+                {
                 MinimaxTreeNode<Configuration> childNode =
                     new MinimaxTreeNode<Configuration>(
                         child, currentNode);
                 tree.AddNode(childNode);
                 nodeList.AddLast(childNode);
+                }
             }
         }
         return tree;
+    }
+
+    /// <summary>
+    /// measuress the depth of the given node in the tree
+    /// <param name="node">node to measure</param>
+    /// </summary>
+    int MeasureDepth(MinimaxTreeNode<Configuration> node)
+    {
+        int depth = 0;
+        MinimaxTreeNode<Configuration> currentNode = node;
+        while (currentNode.Parent != null)
+        {
+            depth++;
+            currentNode = currentNode.Parent;
+        }
+        return depth;
     }
 
     /// <summary>
