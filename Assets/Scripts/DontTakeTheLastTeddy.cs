@@ -77,6 +77,7 @@ public class DontTakeTheLastTeddy : MonoBehaviour, ITakeTurnInvoker, IGameOverIn
     /// </summary>
     void Start()
 	{
+        
         StartGame(PlayerName.Player1, Difficulty.Hard, Difficulty.Hard);
     }
 
@@ -153,6 +154,8 @@ public class DontTakeTheLastTeddy : MonoBehaviour, ITakeTurnInvoker, IGameOverIn
             {
                 gameOverEvent.Invoke(PlayerName.Player1, player1.Difficulty, player2.Difficulty);
             }
+            // pause between the end of one game
+            newGameDelayTimer.Run();
         }
         else
         {
@@ -167,6 +170,8 @@ public class DontTakeTheLastTeddy : MonoBehaviour, ITakeTurnInvoker, IGameOverIn
                 takeTurnEvent.Invoke(PlayerName.Player1,
                     newConfiguration);
             }
+            //disable the game over message
+            gameStartingEvent.Invoke();
         }
     }
 	
@@ -205,6 +210,23 @@ public class DontTakeTheLastTeddy : MonoBehaviour, ITakeTurnInvoker, IGameOverIn
             {
                 // move to statistics scene when all games have been played
                 SceneManager.LoadScene("statistics");
+            }
+        }
+        else
+        {
+            // run multiple games for testing purposes
+            if (gamesPlayed < 5)
+            {
+                gamesPlayed++;
+                if(firstMovePlayer == PlayerName.Player1)
+                {
+                    firstMovePlayer = PlayerName.Player2;
+                }
+                else
+                {
+                    firstMovePlayer = PlayerName.Player1;
+                }
+                StartGame(firstMovePlayer, Difficulty.Hard, Difficulty.Hard);
             }
         }
     }
