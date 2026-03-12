@@ -43,7 +43,26 @@ public class StatisticsDisplay : MonoBehaviour
 	/// </summary>
 	void Start()
 	{
+        // easy vs easy
+        easyEasyPlayer1Wins.text = Statistics.GetWins(PlayerName.Player1, Difficulty.Easy, Difficulty.Easy).ToString();
+        easyEasyPlayer2Wins.text = Statistics.GetWins(PlayerName.Player2, Difficulty.Easy, Difficulty.Easy).ToString();
+        // medium vs medium
+        mediumMediumPlayer1Wins.text = Statistics.GetWins(PlayerName.Player1, Difficulty.Medium, Difficulty.Medium).ToString();
+        mediumMediumPlayer2Wins.text = Statistics.GetWins(PlayerName.Player2, Difficulty.Medium , Difficulty.Medium).ToString();
+        // hard vs hard
+        hardHardPlayer1Wins.text = Statistics.GetWins(PlayerName.Player1, Difficulty.Hard, Difficulty.Hard).ToString();
+        hardHardPlayer2Wins.text = Statistics.GetWins(PlayerName.Player2, Difficulty.Hard, Difficulty.Hard).ToString();
 
+        // easy vs medium
+        easyMediumPlayer1Wins.text = Statistics.GetWins(PlayerName.Player1, Difficulty.Easy, Difficulty.Medium).ToString();
+        easyMediumPlayer2Wins.text = Statistics.GetWins(PlayerName.Player2, Difficulty.Easy, Difficulty.Medium).ToString();
 
+        // medium vs hard 
+        mediumHardPlayer1Wins.text = Statistics.GetWins(PlayerName.Player1, Difficulty.Medium, Difficulty.Hard).ToString();
+        mediumHardPlayer2Wins.text = Statistics.GetWins(PlayerName.Player2, Difficulty.Medium, Difficulty.Hard).ToString();
+
+        // easy vs hard special case
+        easyHardPlayer1Wins.text = Statistics.GetWins(PlayerName.Player1, Difficulty.Easy, Difficulty.Hard).ToString();
+        easyHardPlayer2Wins.text = Statistics.GetWins(PlayerName.Player2, Difficulty.Easy, Difficulty.Hard).ToString();
     }
 }
